@@ -13,7 +13,7 @@ public class HelloController {
 //        model.addAttribute("name",name);
 //        return "index";
 //    }
-
+    //进入主页
     @GetMapping("/index")
     public String index(){
         return "index";
