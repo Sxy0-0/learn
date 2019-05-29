@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <title>社区</title>
+    <!--这里引用文件在static目录，但地址不加static,否则不加载。可能是springboot机制问题-->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -24,7 +25,9 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
+
             <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-brand navbar-right" href="https://github.com/login/oauth/authorize?client_id=7c463e8d6c0775e994c8&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">设置<span class="caret"></span></a>
                     <ul class="dropdown-menu">
