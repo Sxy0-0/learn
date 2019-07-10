@@ -1,9 +1,10 @@
-package com.sxy.learn.learn.model;
+package com.sxy.learn.learn.dto;
 
+import com.sxy.learn.learn.model.User;
 import lombok.Data;
 
 @Data
-public class Question {
+public class QuestionDTO {
     private Integer id;
     private String title;
     private String description;
@@ -16,4 +17,8 @@ public class Question {
     private Integer commentCount;
     private Integer likeCount;
 
+    private User user;
 }
+
+
+

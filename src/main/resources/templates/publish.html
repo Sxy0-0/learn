@@ -4,47 +4,18 @@
     <title>发布</title>
     <!--这里引用文件在static目录，但地址不加static,否则不加载。可能是springboot机制问题-->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/Community.css">
-    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="js/bootstrap.js" type="application/javascript"></script>
+    <script src="/js/npm.js"></script>
+
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
 
-            <a class="navbar-brand" href="#">社区</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-
-            <ul class="nav navbar-nav navbar-right">
-                <!--用于调试<div th:text="${session.user}"></div>-->
-                <li class="dropdown" th:if="${session.user != null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>
-                <li th:unless="${session.user != null}"><a class="navbar-brand navbar-right" href="https://github.com/login/oauth/authorize?client_id=7c463e8d6c0775e994c8&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a></li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-
-</nav>
+<!--引入导航栏-->
+<div th:insert="~{navigation :: copy}"></div>
 
 <div class="container-fluid main">
     <div class="row">
@@ -54,17 +25,17 @@
             <form action="/publish" method="post">
                 <div class="form-group">
                     <label for="title">问题标题</label>
-                    <input type="text" class="form-control" name="title" id="title" placeholder="问题标题...">
+                    <input type="text" class="form-control" th:value="${title}" name="title" id="title" placeholder="问题标题...">
                 </div>
                 <div class="form-group">
                     <label for="description">问题描述</label>
-                    <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" th:text="${description}"name="description" id="description" cols="30" rows="10"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="tag">添加标签</label>
-                    <input type="text" class="form-control" name="tag" id="tag" placeholder="标签...">
+                    <input type="text" class="form-control"th:value="${tag}" name="tag" id="tag" placeholder="标签...">
                 </div>
-                <span></span>
+                <span th:text="${error}" th:if="${error != null}"></span>
                 <button type="submit" class="btn btn-success btn-publish">发布</button>
             </form>
         </div>

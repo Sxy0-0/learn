@@ -30,11 +30,28 @@ public class PublishController {
     @PostMapping("/publish")
     public String doPublish(
     @RequestParam(value = "title",required = false) String title,
-    @RequestParam("description") String description,
+    @RequestParam(value = "description",required = false) String description,
     @RequestParam(value = "tag",required = false) String tag,
     HttpServletRequest request,
     Model model
     ){
+        model.addAttribute("title",title);
+        model.addAttribute("description",description);
+        model.addAttribute("tag",tag);
+
+        if(title == null || title ==""){
+            model.addAttribute("error","标题不能为空");
+            return "publish";
+        }
+        if(description == null || description ==""){
+            model.addAttribute("error","描述不能为空");
+            return "publish";
+        }
+        if(tag == null || tag ==""){
+            model.addAttribute("error","标签不能为空");
+            return "publish";
+        }
+
         Question question = new Question();
         question.setTitle(title);
         System.out.println(title);
@@ -65,6 +82,6 @@ public class PublishController {
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
         questionMapper.create(question);
-        return "redirect:/";
+        return "redirect:/index";
     }
 }

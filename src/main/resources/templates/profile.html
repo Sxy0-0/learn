@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>社区</title>
+    <title th:text="${sectionName}"></title>
     <!--这里引用文件在static目录，但地址不加static,否则不加载。可能是springboot机制问题-->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <script src="js/jquery-3.4.1.min.js" type="application/javascript"></script>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/Community.css">
-    <script src="js/bootstrap.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/Community.css">
+    <script src="/js/bootstrap.js" type="application/javascript"></script>
     <script src="/js/npm.js"></script>
 
 </head>
@@ -18,12 +18,11 @@
 <!--引入导航栏-->
 <div th:insert="~{navigation :: copy}"></div>
 
-<div class="container-fluid main" STYLE="background-color: white">
+<div class="container-fluid main profile" STYLE="background-color: white">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
-            <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;&nbsp;发现</h2>
+            <h2><span th:text="${sectionName}"></span></h2>
             <hr>
-
             <div class="media" th:each="question : ${pagination.questions}">
                 <div class="media-left">
                     <a href="#">
@@ -45,26 +44,26 @@
             <nav aria-label="Page navigation" style="float: right;">
                 <ul class="pagination">
                     <li th:if="${pagination.showFirstPage}">
-                        <a href="/?page=1" aria-label="Previous">
+                        <a th:href="@{'/profile/'+${section}(page=${1})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li th:if="${pagination.showPrevious}">
-                        <a th:href="@{/(page=${pagination.page - 1})}" aria-label="Previous">
+                        <a th:href="@{'/profile/'+${section}(page=${pagination.page - 1})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:each="page : ${pagination.pages}" th:class="${pagination.page == page}? 'active' : '' ">
-                        <a th:href="@{/(page=${page})}" th:text="${page}">
+                        <a th:href="@{'/profile/'+${section}(page=${page})}" th:text="${page}">
                         </a>
                     </li>
                     <li th:if="${pagination.showNext}">
-                        <a  th:href="@{/(page=${pagination.page + 1})}" aria-label="Previous">
+                        <a  th:href="@{'/profile/'+${section}(page=${pagination.page + 1})}" aria-label="Previous">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li th:if="${pagination.showEndPage}">
-                        <a  th:href="@{/(page=${pagination.totalPage})}" aria-label="Next">
+                        <a  th:href="@{'/profile/'+${section}(page=${pagination.totalPage})}" aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
@@ -72,10 +71,15 @@
             </nav>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
-            <h3>热门</h3>
-            1
-            2
-            3
+            <div class="list-group section">
+                <a href="/profile/questions"  th:class="${section == 'questions'}? 'active list-group-item' : 'list-group-item'">我的问题
+                    <span class="badge">14</span>
+                </a>
+                <a href="/profile/replies"  th:class="${section == 'replies'}? 'active list-group-item' : 'list-group-item'">最新回复</a>
+                <a href="#" class="list-group-item">私信</a>
+                <a href="#" class="list-group-item">最新回复</a>
+                <a href="#" class="list-group-item">Something else here</a>
+            </div>
         </div>
     </div>
 
