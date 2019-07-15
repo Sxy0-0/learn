@@ -1,4 +1,4 @@
-package com.sxy.learn.learn.dto;
+package com.sxy.learn.community.dto;
 
 import lombok.Data;
 
@@ -65,6 +65,13 @@ public class PaginationDTO {
             showEndPage = false;
         }else{
             showEndPage = true;
+        }
+
+        if(totalPage == 0){
+            showEndPage = false;
+            showFirstPage = false;
+            showNext = false;
+            showPrevious = false;
         }
     }
 }

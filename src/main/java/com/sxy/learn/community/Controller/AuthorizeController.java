@@ -1,10 +1,11 @@
-package com.sxy.learn.learn.Controller;
+package com.sxy.learn.community.Controller;
 
-import com.sxy.learn.learn.Provider.GithubProvider;
-import com.sxy.learn.learn.dto.AccessTokenDTO;
-import com.sxy.learn.learn.dto.GithubUser;
-import com.sxy.learn.learn.mapper.UserMapper;
-import com.sxy.learn.learn.model.User;
+import com.sxy.learn.community.Provider.GithubProvider;
+import com.sxy.learn.community.dto.AccessTokenDTO;
+import com.sxy.learn.community.dto.GithubUser;
+import com.sxy.learn.community.mapper.UserMapper;
+import com.sxy.learn.community.model.User;
+import com.sxy.learn.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,8 @@ public class AuthorizeController {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserService userService;
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code")String code,
                            @RequestParam(name = "state") String state,
@@ -53,10 +56,8 @@ public class AuthorizeController {
            user.setToken(token);
            user.setName(githubUser.getName());
            user.setAccountId(String.valueOf(githubUser.getId()));
-           user.setGmtCreate(System.currentTimeMillis());
-           user.setGmtModified(user.getGmtCreate());
            user.setAvatarUrl(githubUser.getAvatarUrl());
-           userMapper.insert(user);
+           userService.createOrUpdate(user);
            response.addCookie(new Cookie("token",token));
            //登陆成功，写cookie，session
 //           request.getSession().setAttribute("user",githubUser);
@@ -67,6 +68,13 @@ public class AuthorizeController {
        }
     }
 
-
-
+    @GetMapping("logout")
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response){
+        Cookie cookie = new Cookie("token",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        request.getSession().removeAttribute("user");
+        return "redirect:/";
+    }
 }

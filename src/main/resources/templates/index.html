@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/Community.css">
     <script src="js/bootstrap.js" type="application/javascript"></script>
-    <script src="/js/npm.js"></script>
+    <script src="js/npm.js"></script>
 
 </head>
 <body>
@@ -32,7 +32,9 @@
                     <span></span>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.title}">Media heading</h4>
+                    <h4 class="media-heading" >
+                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
+                    </h4>
                     <span th:text="${question.description}"></span><br>
                     <span class="text-desc">
                         <span th:text="${question.commentCount}"></span>个回复:

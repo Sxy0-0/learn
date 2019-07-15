@@ -1,4 +1,4 @@
-package com.sxy.learn.learn.dto;
+package com.sxy.learn.community.dto;
 
 import lombok.Data;
 

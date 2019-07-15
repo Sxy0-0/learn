@@ -1,10 +1,7 @@
-package com.sxy.learn.learn.mapper;
+package com.sxy.learn.community.mapper;
 
-import com.sxy.learn.learn.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.sxy.learn.community.model.User;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -18,4 +15,12 @@ public interface UserMapper {
 
     @Select("select * from user where id = #{id}")
     User findById(Integer creator);
+
+    @Select("select * from user where account_id = #{accountId}")
+    User findByAccountId(@Param("accountId") String accountId);
+
+    @Update("update user set name = #{name},token = #{token}," +
+            "gmt_modified = #{gmtModified},avatar_url = #{avatarUrl}" +
+            "where id = #{id}")
+    void update(User dbUser);
 }

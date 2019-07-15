@@ -1,4 +1,4 @@
-package com.sxy.learn.learn;
+package com.sxy.learn.community;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

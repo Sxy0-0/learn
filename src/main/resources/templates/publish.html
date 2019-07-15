@@ -4,11 +4,11 @@
     <title>发布</title>
     <!--这里引用文件在static目录，但地址不加static,否则不加载。可能是springboot机制问题-->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script src="js/jquery-3.4.1.min.js" type="application/javascript"></script>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/Community.css">
-    <script src="js/bootstrap.js" type="application/javascript"></script>
+    <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/Community.css">
+    <script src="/js/bootstrap.js" type="application/javascript"></script>
     <script src="/js/npm.js"></script>
 
 </head>
@@ -23,6 +23,7 @@
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;发起</h2>
             <hr>
             <form action="/publish" method="post">
+                <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <label for="title">问题标题</label>
                     <input type="text" class="form-control" th:value="${title}" name="title" id="title" placeholder="问题标题...">

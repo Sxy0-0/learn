@@ -1,4 +1,4 @@
-package com.sxy.learn.learn.model;
+package com.sxy.learn.community.model;
 
 import lombok.Data;
 

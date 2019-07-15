@@ -1,4 +1,4 @@
-package com.sxy.learn.learn;
+package com.sxy.learn.community;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,11 +1,11 @@
-package com.sxy.learn.learn.service;
+package com.sxy.learn.community.service;
 
-import com.sxy.learn.learn.dto.PaginationDTO;
-import com.sxy.learn.learn.dto.QuestionDTO;
-import com.sxy.learn.learn.mapper.QuestionMapper;
-import com.sxy.learn.learn.mapper.UserMapper;
-import com.sxy.learn.learn.model.Question;
-import com.sxy.learn.learn.model.User;
+import com.sxy.learn.community.dto.PaginationDTO;
+import com.sxy.learn.community.dto.QuestionDTO;
+import com.sxy.learn.community.mapper.QuestionMapper;
+import com.sxy.learn.community.mapper.UserMapper;
+import com.sxy.learn.community.model.Question;
+import com.sxy.learn.community.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,7 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
+    //主页问题列表
     public PaginationDTO list(Integer page, Integer size) {
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
@@ -34,20 +35,19 @@ public class QuestionService {
             totalPage = totalCount / size + 1;
         }
 
-        if(page < 1){
-            page = 1;
-        }
-        if(page > totalPage){
-            page = totalPage;
+        if(totalCount == 0) totalPage = 0;
+
+        if(totalPage != 0){
+            if(page < 1){
+                page = 1;
+            }else if(page > totalPage){
+                page = totalPage;
+            }
         }
 
-        paginationDTO.setPagination(totalPage,page);
         Integer offset = size *(page - 1);
-
-
+        paginationDTO.setPagination(totalPage,page);
         List<Question>  questions = questionMapper.list(offset,size);
-
-
 
         for(Question question : questions){
             User user = userMapper.findById(question.getCreator());
@@ -69,12 +69,16 @@ public class QuestionService {
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalCount = questionMapper.countByUserId(userId);
         Integer totalPage;
+
+
         //计算总页数
         if(totalCount % size == 0){
             totalPage = totalCount / size;
         }else {
             totalPage = totalCount / size + 1;
         }
+
+        if(totalCount == 0) totalPage = 0;
 
         if(totalPage != 0){
             if(page < 1){
@@ -103,5 +107,27 @@ public class QuestionService {
 
 
         return paginationDTO;
+    }
+
+    public QuestionDTO getById(Integer id) {
+
+        Question question = questionMapper.getById(id);
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question,questionDTO);
+        User user = userMapper.findById(question.getCreator());
+        questionDTO.setUser(user);
+        return questionDTO;
+    }
+
+    public void createOrUpdate(Question question) {
+
+        question.setGmtCreate(System.currentTimeMillis());
+        if (question.getId() == null){
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+        }else{
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.update(question);
+        }
     }
 }

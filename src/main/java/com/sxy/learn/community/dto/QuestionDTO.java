@@ -1,6 +1,6 @@
-package com.sxy.learn.learn.dto;
+package com.sxy.learn.community.dto;
 
-import com.sxy.learn.learn.model.User;
+import com.sxy.learn.community.model.User;
 import lombok.Data;
 
 @Data
