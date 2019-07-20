@@ -1,9 +1,9 @@
-package com.sxy.learn.community.Controller;
+package com.sxy.community.Controller;
 
-import com.sxy.learn.community.dto.PaginationDTO;
-import com.sxy.learn.community.mapper.UserMapper;
-import com.sxy.learn.community.model.User;
-import com.sxy.learn.community.service.QuestionService;
+import com.sxy.community.dto.PaginationDTO;
+import com.sxy.community.mapper.UserMapper;
+import com.sxy.community.model.User;
+import com.sxy.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

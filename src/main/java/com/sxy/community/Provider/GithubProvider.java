@@ -1,8 +1,8 @@
-package com.sxy.learn.community.Provider;
+package com.sxy.community.Provider;
 
 import com.alibaba.fastjson.JSON;
-import com.sxy.learn.community.dto.AccessTokenDTO;
-import com.sxy.learn.community.dto.GithubUser;
+import com.sxy.community.dto.AccessTokenDTO;
+import com.sxy.community.dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 

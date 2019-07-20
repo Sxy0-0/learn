@@ -1,9 +1,11 @@
-package com.sxy.learn.community;
+package com.sxy.community;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@MapperScan("com.sxy.community.mapper")
 public class LearnApplication {
 
     public static void main(String[] args) {
